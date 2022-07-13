@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\vegetableAPI;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::get('vegetable',[vegetableAPI::class, 'search']);
+
+Route::get('vegetable/count',function(){
+    // su dung with count and vegetables in model
+   $query =  App\Models\Categori::withCount(['vegetables'])->get();
+   return response()->json(['data'=>$query]);
 });
